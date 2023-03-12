@@ -1,10 +1,4 @@
-import React, {
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useRedux';
 import {
 	resetQuiz,
@@ -40,7 +34,7 @@ const Quiz: React.FC = () => {
 		difficult === 'easy' ? 30 : difficult === 'medium' ? 45 : undefined;
 	const [counter, setCounter] = useState(TIMER);
 	const dispatch = useAppDispatch();
-	const divRef = useRef<boolean>();
+	const [stopIntialRender, setStopIntialRender] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [primaryText, setPrimaryText] = useState<string>('');
 	const [secondaryText, setSecondaryText] = useState<string>('');
@@ -49,27 +43,43 @@ const Quiz: React.FC = () => {
 	const wrongPlay = useMemo(() => new Audio(Sounds.wrong), []);
 	const congratsPlay = useMemo(() => new Audio(Sounds.congrats), []);
 
+	const handleWinningModal = useCallback(
+		(finalAmountId?: number) => {
+			gameOver();
+			setPrimaryText(string['quiz.congratulations']);
+			setSecondaryText(
+				string.formatString(
+					string['quiz.congratulations_desc'],
+					MoneyList[finalAmountId || priceAmountId].price
+				) as string
+			);
+			setIsModalOpen(true);
+			setStartFireWorks(true);
+			congratsPlay.play();
+		},
+		[priceAmountId, congratsPlay]
+	);
+
 	useEffect(() => {
 		if (currentPriceId > 15) {
 			handleWinningModal(15);
-			divRef.current = false;
-			return;
+			setStopIntialRender(false);
 		} else if (currentPriceId === 9) {
 			updateBreakPoint('hard');
 		} else if (currentPriceId === 4) {
 			updateBreakPoint('medium');
 		}
-	}, [currentPriceId]);
+	}, [currentPriceId, handleWinningModal]);
 
 	useEffect(() => {
-		if (divRef.current) {
+		if (stopIntialRender) {
 			dispatch(updateLoading(true));
 			setQuizQuestions({ difficult });
 			setCounter(TIMER);
 		} else {
-			divRef.current = true;
+			setStopIntialRender(true);
 		}
-	}, [difficult, currentPriceId, TIMER]);
+	}, [difficult, currentPriceId, TIMER, dispatch, stopIntialRender]);
 
 	const resetState = () => {
 		setClassName('');
@@ -114,23 +124,6 @@ const Quiz: React.FC = () => {
 		setIsModalOpen(true);
 	};
 
-	const handleWinningModal = useCallback(
-		(finalAmountId?: number) => {
-			gameOver();
-			setPrimaryText(string['quiz.congratulations']);
-			setSecondaryText(
-				string.formatString(
-					string['quiz.congratulations_desc'],
-					MoneyList[finalAmountId || priceAmountId].price
-				) as string
-			);
-			setIsModalOpen(true);
-			setStartFireWorks(true);
-			congratsPlay.play();
-		},
-		[priceAmountId, currentPriceId]
-	);
-
 	const handleModalClose = () => {
 		setIsModalOpen(false);
 		setPrimaryText('');
@@ -163,7 +156,7 @@ const Quiz: React.FC = () => {
 	const resetGame = useCallback(() => {
 		handleModalClose();
 		dispatch(resetQuiz());
-	}, []);
+	}, [dispatch]);
 
 	const handleMenuClick = () => {
 		const ele = document.getElementById('money-container');
@@ -172,10 +165,10 @@ const Quiz: React.FC = () => {
 		}
 	};
 
-	const handleQuitSure = () => {
+	const handleQuitSure = useCallback(() => {
 		dispatch(updatePriceAmountId(currentPriceId - 1));
 		handleWinningModal(currentPriceId - 1);
-	};
+	}, [currentPriceId, dispatch, handleWinningModal]);
 
 	const handleModalClicks = useCallback(() => {
 		switch (primaryText) {
@@ -192,10 +185,6 @@ const Quiz: React.FC = () => {
 					secondaryBtn: handleModalClose,
 				};
 			case string['quiz.wrong_option']:
-				return {
-					primaryBtn: currentPriceId > 0 ? handleWinningModal : resetGame,
-					primaryText: string['modal.ok'],
-				};
 			case string['quiz.times_up']:
 				return {
 					primaryBtn: currentPriceId > 0 ? handleWinningModal : resetGame,
@@ -207,7 +196,13 @@ const Quiz: React.FC = () => {
 					primaryText: string['modal.ok'],
 				};
 		}
-	}, [primaryText, handleWinningModal, currentPriceId, resetGame]);
+	}, [
+		primaryText,
+		handleWinningModal,
+		currentPriceId,
+		resetGame,
+		handleQuitSure,
+	]);
 
 	const buttonConfigs = useMemo(() => handleModalClicks(), [handleModalClicks]);
 

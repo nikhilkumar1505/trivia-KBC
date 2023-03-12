@@ -55,12 +55,14 @@ export default function Fireworks({
 	}, []);
 
 	useEffect(() => {
-		if (startFireworks) {
-			startAnimation();
-		} else {
-			stopAnimation();
+		if (refAnimationInstance.current) {
+			if (startFireworks) {
+				startAnimation();
+			} else {
+				stopAnimation();
+			}
 		}
-	}, [startFireworks]);
+	}, [startFireworks, refAnimationInstance]);
 
 	const startAnimation = useCallback(() => {
 		if (!intervalId) {

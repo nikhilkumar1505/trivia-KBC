@@ -35,7 +35,9 @@ export const setQuizQuestions = async (payload: { difficult: string }) => {
 			store.dispatch(updateQuizList(organizeQuizdata(res.data[0])));
 			store.dispatch(updateLoading(false));
 		}
-	} catch (err) {}
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 export const gameOver = () => {
