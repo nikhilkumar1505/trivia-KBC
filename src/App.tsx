@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { MoneyDrawer, Quiz } from './components';
+import PlayerModal from './components/modal/LandingModal';
+import { useAppSelector } from './hooks/useRedux';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const name = useAppSelector((state) => state.quiz.playerName);
+	return (
+		<>
+			{name.length ? (
+				<div className='App'>
+					<Quiz />
+					<MoneyDrawer />
+				</div>
+			) : (
+				<PlayerModal />
+			)}
+		</>
+	);
 }
 
 export default App;

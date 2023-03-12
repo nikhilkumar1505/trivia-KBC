@@ -1,0 +1,16 @@
+@use '../../../utils/Constants.scss' as *;
+.btn-container {
+	padding: 1rem 2rem;
+	color: $light;
+	border-style: solid;
+	border-color: $secondary;
+}
+
+.gradient {
+	background: linear-gradient($gradient1, $gradient2);
+}
+@media only screen and (max-width: 800px) {
+	.btn-container {
+		font-size: 1.3rem;
+	}
+}

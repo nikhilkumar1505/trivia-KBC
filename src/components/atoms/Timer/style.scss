@@ -1,0 +1,12 @@
+.timer-container {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	border-radius: 4rem;
+	.timer {
+		padding: 1rem;
+		border-radius: 2rem;
+	}
+}
