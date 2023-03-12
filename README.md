@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# Trivia KBC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Trivia-KBC is an exciting project that is designed to provide users with a fun and engaging way to test their knowledge and win exciting prizes. Inspired by the popular game show Kaun Banega Crorepati (KBC), this project aims to offer users an online version of the game that can be played from the comfort of their own home.
 
-## Available Scripts
+## `Screen shots`
 
-In the project directory, you can run:
+![Screenshot 2023-03-12 at 13 34 29](https://user-images.githubusercontent.com/68338566/224532814-69775544-f07c-4d89-b3b8-ba9cb3047e1b.png)
+![Screenshot 2023-03-12 at 13 38 26](https://user-images.githubusercontent.com/68338566/224532792-fd8bbe04-d07f-4bc3-a7b4-2b80e7c97828.png)
+![Screenshot 2023-03-12 at 13 35 41](https://user-images.githubusercontent.com/68338566/224532806-d3def99e-12c8-4078-bcee-55d5f56d0c7a.png)
+![Screenshot 2023-03-12 at 13 41 30](https://user-images.githubusercontent.com/68338566/224532891-2123eff0-7f82-4ffb-a5dd-ca4ad25628cc.png)
+![Screenshot 2023-03-12 at 13 42 35](https://user-images.githubusercontent.com/68338566/224532925-ee919deb-efef-4cac-891c-9377a26d5d13.png)
 
-### `npm start`
+### `Library and Api`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> BaseUrl : https://the-trivia-api.com/
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Redux
+- react-canvas-confetti
+- React-Modal
+- react-localization
+- spinners-react
+- axios
+- sass
 
-### `npm test`
+### `Live URL`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Play, Enjoy and Improve : [Trivia-KBC](https://trivia-kbc.netlify.app/)
